@@ -42,12 +42,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     }
   }
 
-  if (
-    validateInput(pilot) != "Not a Number" ||
-    validateInput(copilot) != "Not a Number" ||
-    validateInput(fuelLevel) != "Is a Number" ||
-    validateInput(cargoLevel) != "Is a Number"
-  ) {
+  if (validateInput(pilot) != "Not a Number" || validateInput(copilot) != "Not a Number" || validateInput(fuelLevel) != "Is a Number" || validateInput(cargoLevel) != "Is a Number") {
     alert("Make sure to enter valid information for each field!");
     return;
   }
@@ -57,21 +52,15 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
   let readyForLaunch = fuelReady && cargoReady;
 
   if (!readyForLaunch) {
-    list.querySelector("#launchStatus").innerText =
-      "Shuttle not ready for launch";
+    list.querySelector("#launchStatus").innerText = "Shuttle not ready for launch";
     list.querySelector("#launchStatus").style.color = "red";
     list.querySelector("#faultyItems").style.visibility = "visible";
-    list.querySelector(
-      "#pilotStatus"
-    ).innerText = `Pilot ${pilot} is ready for launch ✅`;
-    list.querySelector(
-      "#copilotStatus"
-    ).innerText = `Co-pilot ${copilot} is ready for launch ✅`;
+    list.querySelector("#pilotStatus").innerText = `Pilot ${pilot} is ready for launch ✅`;
+    list.querySelector("#copilotStatus").innerText = `Co-pilot ${copilot} is ready for launch ✅`;
     list.querySelector("#fuelStatus").innerHTML = `Fuel level ${fuelReady ? "high enough" : "too low"} for launch ${fuelReady ? "✅" : "❌"}`;
     list.querySelector("#cargoStatus").innerHTML = `Cargo mass ${cargoReady ? "low enough" : "too high"} for launch ${cargoReady ? "✅" : "❌"}`;
   } else {
-    list.querySelector("#launchStatus").innerText =
-      "Shuttle is ready for launch";
+    list.querySelector("#launchStatus").innerText = "Shuttle is ready for launch";
     list.querySelector("#launchStatus").style.color = "green";
     list.querySelector("#faultyItems").style.visibility = "hidden";
   }
@@ -79,10 +68,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
 async function myFetch() {
   let planetsReturned;
-  planetsReturned = await fetch(
-    "https://handlers.education.launchcode.org/static/planets.json"
-  ).then((response) => response.json());
-
+  planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then((response) => response.json());
   return planetsReturned;
 }
 
