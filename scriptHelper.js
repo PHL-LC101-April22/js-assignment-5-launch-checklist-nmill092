@@ -35,6 +35,7 @@ function validateInput(testInput) {
 }
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
+
   for (let i = 2; i < 6; i++) {
     if (validateInput(arguments[i]) == "Empty") {
       alert("Please make sure all fields are filled.");
@@ -47,7 +48,26 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     return;
   }
 
-  console.log("HEY YOU GUYS!!!")
+   
+  let fuelReady = fuelLevel >= 10000; 
+  let cargoReady = cargoLevel <= 10000;
+  let readyForLaunch = fuelReady && cargoReady; 
+ 
+
+
+  if(!readyForLaunch) { 
+    list.querySelector("#launchStatus").innerText = "Shuttle not ready for launch"; 
+    list.querySelector("#launchStatus").style.color = "red"; 
+    list.querySelector("#faultyItems").style.visibility = "visible"; 
+    list.querySelector("#pilotStatus").style.color = `Pilot ${pilot} is ready for launch`;
+    list.querySelector("#copilotStatus").innerText = `Co-pilot ${copilot} is ready for launch`;
+    list.querySelector("#fuelStatus").innerHTML = `Fuel level ${fuelReady ? "high enough" : "too low"} for launch`;
+    list.querySelector("#cargoStatus").innerHTML = `Cargo mass ${cargoReady ? "low enough" : "too high"} for launch`;
+  } else { 
+    list.querySelector("#launchStatus").innerText = "Shuttle is ready for launch"; 
+    list.querySelector("#launchStatus").style.color = "green"; 
+  }
+ 
 
 
 }
