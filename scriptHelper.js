@@ -11,7 +11,7 @@ function addDestinationInfo(
   imageUrl
 ) {
   // Here is the HTML formatting for our mission target div.
-   document.querySelector("#missionTarget").innerHTML = `
+  document.querySelector("#missionTarget").innerHTML = `
                 <h2>Mission Destination</h2>
                 <ol>
                     <li>Name: ${name} </li>
@@ -21,8 +21,7 @@ function addDestinationInfo(
                     <li>Number of Moons: ${moons} </li>
                 </ol>
                 <img src="${imageUrl}">
-                `
-   
+                `;
 }
 
 function validateInput(testInput) {
@@ -36,7 +35,6 @@ function validateInput(testInput) {
 }
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-
   for (let i = 2; i < 6; i++) {
     if (validateInput(arguments[i]) == "Empty") {
       alert("Please make sure all fields are filled.");
@@ -44,46 +42,53 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     }
   }
 
-  if (validateInput(pilot) != "Not a Number" || validateInput(copilot) != "Not a Number" || validateInput(fuelLevel) != "Is a Number" || validateInput(cargoLevel) != "Is a Number") {
+  if (
+    validateInput(pilot) != "Not a Number" ||
+    validateInput(copilot) != "Not a Number" ||
+    validateInput(fuelLevel) != "Is a Number" ||
+    validateInput(cargoLevel) != "Is a Number"
+  ) {
     alert("Make sure to enter valid information for each field!");
     return;
   }
 
-   
-  let fuelReady = fuelLevel >= 10000; 
+  let fuelReady = fuelLevel >= 10000;
   let cargoReady = cargoLevel <= 10000;
-  let readyForLaunch = fuelReady && cargoReady; 
- 
-
-
-  if(!readyForLaunch) { 
-    list.querySelector("#launchStatus").innerText = "Shuttle not ready for launch"; 
-    list.querySelector("#launchStatus").style.color = "red"; 
-    list.querySelector("#faultyItems").style.visibility = "visible"; 
-    list.querySelector("#pilotStatus").style.color = `Pilot ${pilot} is ready for launch`;
-    list.querySelector("#copilotStatus").innerText = `Co-pilot ${copilot} is ready for launch`;
-    list.querySelector("#fuelStatus").innerHTML = `Fuel level ${fuelReady ? "high enough" : "too low"} for launch`;
-    list.querySelector("#cargoStatus").innerHTML = `Cargo mass ${cargoReady ? "low enough" : "too high"} for launch`;
-  } else { 
-    list.querySelector("#launchStatus").innerText = "Shuttle is ready for launch"; 
-    list.querySelector("#launchStatus").style.color = "green"; 
+  let readyForLaunch = fuelReady && cargoReady;
+   console.log(fuelReady)
+  if (!readyForLaunch) {
+    list.querySelector("#launchStatus").innerText =
+      "Shuttle not ready for launch";
+    list.querySelector("#launchStatus").style.color = "red";
+    list.querySelector("#faultyItems").style.visibility = "visible";
+    list.querySelector(
+      "#pilotStatus"
+    ).innerText = `Pilot ${pilot} is ready for launch ✅`;
+    list.querySelector(
+      "#copilotStatus"
+    ).innerText = `Co-pilot ${copilot} is ready for launch ✅`;
+    list.querySelector("#fuelStatus").innerHTML = `Fuel level ${fuelReady ? "high enough" : "too low"} for launch ${fuelReady ? "✅" : "❌"}`;
+    list.querySelector("#cargoStatus").innerHTML = `Cargo mass ${cargoReady ? "low enough" : "too high"} for launch ${cargoReady ? "✅" : "❌"}`;
+  } else {
+    list.querySelector("#launchStatus").innerText =
+      "Shuttle is ready for launch";
+    list.querySelector("#launchStatus").style.color = "green";
+    list.querySelector("#faultyItems").style.visibility = "hidden";
   }
- 
-
-
 }
 
 async function myFetch() {
   let planetsReturned;
-  planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json")
-  .then(response => response.json())
+  planetsReturned = await fetch(
+    "https://handlers.education.launchcode.org/static/planets.json"
+  ).then((response) => response.json());
 
   return planetsReturned;
 }
 
 function pickPlanet(planets) {
-    let randomPlanet = Math.floor(Math.random() * planets.length)
-    return planets[randomPlanet];
+  let randomPlanet = Math.floor(Math.random() * planets.length);
+  return planets[randomPlanet];
 }
 
 module.exports.addDestinationInfo = addDestinationInfo;
