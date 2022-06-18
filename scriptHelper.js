@@ -55,7 +55,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
   let fuelReady = fuelLevel >= 10000;
   let cargoReady = cargoLevel <= 10000;
   let readyForLaunch = fuelReady && cargoReady;
-   console.log(fuelReady)
+
   if (!readyForLaunch) {
     list.querySelector("#launchStatus").innerText =
       "Shuttle not ready for launch";
